@@ -1,96 +1,85 @@
-# **Lab Exercise: Working with ENV Variables**
+# **Lab Exercise: Returning Data Based on the ENV Variable**
 
 ## **🎯 Objectives**
-
-This lab exercise focuses on:
-
-- Understanding the importance of **Environment (ENV) variables**.
-- Learning to use the **dotenv** package for managing these variables.
-- Implementing a script that securely retrieves and utilizes ENV variables.
+Learn how to:
+- Configure applications to return data based on environment variables.
+- Manage different environments effectively in full-stack development.
 
 ---
 
 ## **📚 Prerequisites**
-
-Before starting, ensure you have:
-
-- Basic knowledge of **JavaScript**.
-- Familiarity with **terminal/command line** operations.
+Before you begin, ensure you:
+- Are familiar with **JavaScript**.
+- Understand the basics of **environment variables**.
 
 ---
 
 ## **🚀 Steps**
 
-### **1. Install the dotenv Package**
-
-Install the `dotenv` package using npm to help load ENV variables from a `.env` file into your application.
-
-Run the following command:
-
+### **1. Install dotenv**
+Install the `dotenv` package to manage environment variables:
 ```bash
-npm install dotenv
+yarn add dotenv
 ```
 
 ---
 
-### **2. Create an .env File**
-
-Create a file named `.env` in your project directory and add the following variables:
-
-```plaintext
-API_KEY=
-SERVER_SECRET=
-IS_KALVIAN=true
-```
-
-Fill in the values for `API_KEY` and `SERVER_SECRET` as needed.
-
----
-
-### **3. Read the ENV Variables**
-
-Write a JavaScript script to retrieve and use these variables with the **dotenv** package.
-
-Here’s an example:
-
+### **2. Require dotenv in Your File**
+Add the following line at the top of your main file to load the environment variables:
 ```javascript
-// Load the dotenv package
+require('dotenv').config();
+```
+
+---
+
+### **3. Define the Environment Variables**
+Create a `.env` file in your project directory and define your variables:
+```plaintext
+IS_ADMIN=true
+```
+
+You can modify the value to `true` or `false` depending on your requirements.
+
+---
+
+### **4. Access Environment Variables**
+Use `process.env` to access your variables anywhere in your application. Here's an example:
+```javascript
+const isAdmin = process.env.IS_ADMIN === 'true';
+
+if (isAdmin) {
+  console.log("Admin privileges granted.");
+} else {
+  console.log("Access restricted. Admin only.");
+}
+```
+
+---
+
+### **5. Return Different Data**
+Conditionally return different data based on the value of the environment variable. Example:
+```javascript
+const express = require('express');
 require('dotenv').config();
 
-// Access environment variables
-const config = {
-  apiKey: process.env.API_KEY,
-  serverSecret: process.env.SERVER_SECRET,
-  isKalvian: process.env.IS_KALVIAN === 'true',
-};
+const app = express();
 
-// Export the config object
-module.exports = config;
+app.get('/', (req, res) => {
+  if (process.env.IS_ADMIN === 'true') {
+    res.send({ message: "Welcome, Admin!", data: ["Admin Data 1", "Admin Data 2"] });
+  } else {
+    res.send({ message: "Welcome, User!", data: ["User Data 1", "User Data 2"] });
+  }
+});
 
-// Log the variables (Optional for testing)
-console.log(config);
+app.listen(3000, () => console.log("Server is running on port 3000."));
 ```
-
----
-
-### **4. Run the Script**
-
-Execute the script to verify that the environment variables are loaded and accessible.
-
-```bash
-node <your_script_name>.js
-```
-
-You should see the environment variables printed in the console if everything is set up correctly.
 
 ---
 
 ## **🏁 Outcome**
+By completing this exercise, you will:
+- Understand how to manipulate application behavior using environment variables.
+- Learn to handle different environments securely and efficiently.
 
-By completing this exercise, you will have:
-
-- Created a script that securely retrieves and uses ENV variables.
-- Learned the importance of **dotenv** in managing environment configurations.
-- Enhanced the **security** and **flexibility** of your code by separating sensitive data from your source files.
-
-🎉 **Congratulations!** You've successfully implemented a secure environment variable management system using the **dotenv** package.
+🎉 **Congratulations!** You’ve mastered a crucial skill for **full-stack development**! 💼🔐
