@@ -55,13 +55,13 @@ Here’s an example:
 
 ```javascript
 // Load the dotenv package
-require('dotenv').config();
+require("dotenv").config();
 
 // Access environment variables
 const config = {
   apiKey: process.env.API_KEY,
   serverSecret: process.env.SERVER_SECRET,
-  isKalvian: process.env.IS_KALVIAN === 'true',
+  isKalvian: process.env.IS_KALVIAN === "true",
 };
 
 // Export the config object
@@ -94,3 +94,4 @@ By completing this exercise, you will have:
 - Enhanced the **security** and **flexibility** of your code by separating sensitive data from your source files.
 
 🎉 **Congratulations!** You've successfully implemented a secure environment variable management system using the **dotenv** package.
+.
